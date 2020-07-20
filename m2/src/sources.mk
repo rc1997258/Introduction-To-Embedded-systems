@@ -10,11 +10,12 @@
 #*****************************************************************************
 
 # Add your Source files to this variable
-SOURCES = ./main.c \
-	  ./memory.c
+SOURCES = 	./main.c \
+	  	./memory.c
 
 # Add your include paths to this variable
-INCLUDES = -I ../include/common \
-	   -I ../include/cmsis \
-	   -I ../include/msp432
+INCLUDES = 	   -I../include/CMSIS \
+	 	   -I../include/common \
+		   -I../include/msp432 \
+		   -I../
 
