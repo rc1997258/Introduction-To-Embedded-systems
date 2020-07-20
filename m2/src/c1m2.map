@@ -486,35 +486,35 @@ LOAD linker stubs
  .debug_aranges
                 0x00000000000001d0       0x20 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libnosys.a(_exit.o)
 
-.debug_str      0x0000000000000000     0x184f
+.debug_str      0x0000000000000000     0x1883
  .debug_str     0x0000000000000000       0x98 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/crt0.o
- .debug_str     0x0000000000000098      0x190 main.o
-                                        0x1d7 (size before relaxing)
- .debug_str     0x0000000000000228       0x41 memory.o
-                                        0x165 (size before relaxing)
- .debug_str     0x0000000000000269       0x96 interrupts_msp432p401r_gcc.o
+ .debug_str     0x0000000000000098      0x15f main.o
+                                        0x1a6 (size before relaxing)
+ .debug_str     0x00000000000001f7       0x41 memory.o
+                                        0x134 (size before relaxing)
+ .debug_str     0x0000000000000238       0xfb interrupts_msp432p401r_gcc.o
                                         0x22a (size before relaxing)
- .debug_str     0x00000000000002ff       0x2b startup_msp432p401r_gcc.o
+ .debug_str     0x0000000000000333       0x2b startup_msp432p401r_gcc.o
                                         0x1bf (size before relaxing)
- .debug_str     0x000000000000032a      0x8c2 system_msp432p401r.o
+ .debug_str     0x000000000000035e      0x8c2 system_msp432p401r.o
                                         0xa95 (size before relaxing)
- .debug_str     0x0000000000000bec      0x526 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg.a(lib_a-atexit.o)
+ .debug_str     0x0000000000000c20      0x526 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg.a(lib_a-atexit.o)
                                         0x5eb (size before relaxing)
- .debug_str     0x0000000000001112       0x74 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg.a(lib_a-exit.o)
+ .debug_str     0x0000000000001146       0x74 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg.a(lib_a-exit.o)
                                         0x5ec (size before relaxing)
- .debug_str     0x0000000000001186       0xc8 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg.a(lib_a-fini.o)
+ .debug_str     0x00000000000011ba       0xc8 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg.a(lib_a-fini.o)
                                         0x1fa (size before relaxing)
- .debug_str     0x000000000000124e       0x9b /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg.a(lib_a-impure.o)
+ .debug_str     0x0000000000001282       0x9b /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg.a(lib_a-impure.o)
                                         0x5a0 (size before relaxing)
- .debug_str     0x00000000000012e9       0x96 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg.a(lib_a-init.o)
+ .debug_str     0x000000000000131d       0x96 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg.a(lib_a-init.o)
                                         0x224 (size before relaxing)
- .debug_str     0x000000000000137f      0x310 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg.a(lib_a-memset.o)
+ .debug_str     0x00000000000013b3      0x310 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg.a(lib_a-memset.o)
                                         0x8cd (size before relaxing)
- .debug_str     0x000000000000168f       0x54 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg.a(lib_a-__atexit.o)
+ .debug_str     0x00000000000016c3       0x54 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg.a(lib_a-__atexit.o)
                                         0x609 (size before relaxing)
- .debug_str     0x00000000000016e3       0x63 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg.a(lib_a-__call_atexit.o)
+ .debug_str     0x0000000000001717       0x63 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg.a(lib_a-__call_atexit.o)
                                         0x61c (size before relaxing)
- .debug_str     0x0000000000001746      0x109 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libnosys.a(_exit.o)
+ .debug_str     0x000000000000177a      0x109 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libnosys.a(_exit.o)
                                         0x19f (size before relaxing)
 
 .debug_frame    0x0000000000000000      0x380
