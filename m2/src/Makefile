@@ -10,101 +10,90 @@
 #*****************************************************************************
 
 #------------------------------------------------------------------------------
-# <Put a Description Here>
+# Make file for host and MSP432 target
 #
 # Use: make [TARGET] [PLATFORM-OVERRIDES]
 #
 # Build Targets:
-#      <Put a description of the supported targets here>
+#      <FILE>.o - Builds <FILE>.o object file
+#      <FILE>.i - Make the Preprocessed output of <FILE>.i
+#      <FILE>.asm - Make a assembly output of <FILE>.asm
+#      compile-all - Compile all object files
+#      build - Compile all object files and link into a final executable
+#      clean - Remove all compiled objects, preprocessed outputs, assembly outputs, executable files and build output files
 #
 # Platform Overrides:
-#      <Put a description of the supported Overrides here
+#      CPU - ARM Cortex Architecture (cortex-m4)
+#      ARCH - ARM Architecture (thumb)
+#      SPECS - Specs file to give the linker (nosys.specs)
 #
 #------------------------------------------------------------------------------
 include sources.mk
 
-# Platform Overrides
-PLATFORM = HOST
-
-# General flags for both platforms
-FLAGS = -Wall -Werror -g -O0 -std=c99
-
-TARGET = c1m2
-
 ifeq ($(PLATFORM), MSP432)
-	# Architectures Specific Flags
-	LINKER_FILE = -T msp432p401r.lds
-	LINKER_PATH = -L ../
-        CPU = cortex-m4
-	ARCH = armv7e-m
-	SPECS = nosys.space
-	ARCH_FLAGS = -mthmb \
-		     -mfloat-abi-hard \
-		     -mfpu=fpv4-sp-d16
-
-	# Compiler Flags and Defines
 	CC = arm-none-eabi-gcc
 	LD = arm-none-eabi-ld
-	LDFLAGS = -Wl, -Map=$(TARGET).map $(LINKER_PATH) $(LINKER_FILE)
-	CFLAGS = $(FLAGS) $(ARCH_FLAGS) -mcpu=$(CPU) -march=$(ARCH) --specs=$(SPECS)
-	CPPFLAGs = -DMSP432 $(INCLUDES)
-
-	# Architecture specific source files
-	SRCS = main.c \
-	       memory.c \
-	       interrupts_msp432p401_gcc.c \
-	       startup_msp432p401r_gcc.c \
-	       system_msp432p401r.c
+	LDFLAGS = -Wl,-Map=$(TARGET).map -T $(LINKER_FILE)
+	LINKER_FILE = ../msp432p401r.lds
+	CPU = cortex-m4
+	ARCH = thumb
+	SPECS = nosys.specs
+	FPU = fpv4-sp-d16
+	ARMFLAGS = -mcpu=$(CPU) -m$(ARCH) --specs=$(SPECS) -march=armv7e-m -mfloat-abi=hard -mfpu=$(FPU)
+	OBJDUMP = arm-none-eabi-objdump
 
 	SIZE = arm-none-eabi-size
 
 else
-	# Compiler Flags and Defines
 	CC = gcc
-	LDFLAGS = -Wl, -Map=$(TARGET).map
-	CFLAGS = $(FLAGS)
-	CPPFLAGs = -DHOST $(INCLUDES)
+	LD = ld
 	SIZE = size
-
-	# Source files for the host
-	SRCS = main.c \
-	       memory.c \
+	LDFLAGS = -Wl,-Map=$(Target).map
+	OBJDUMP = objdump
 
 endif
 
-#using a list of source files to generate other variables
-OBJS := $(SRCS:.c=.o)
-DEPS := $(SRCS:.c=.d)
-ASMS := $(SRCS:.c=.asm)
-PREP := $(SRCS:.c=.i)
+TARGET = c1m2
 
-#stop after assembler generates a .o file
-%.o: %.c
-	$(CC) -c $< $(CFLAGS) $(CPPFLAGS) -o $@
+CFLAGS = -Wall -Werror -g -O0 -std=c99 -D$(PLATFORM) $(ARMFLAGS)
+CPPFLAGS = -E
+MAIN = main
 
-#stop after assembler generates a .asm file
-%.asm: %.c
-	$(CC) -S $< $(CFLAGS) $(CPPFLAGS) -o $@
+OBJS = $(SOURCES:.c=.o)
+PREPRO = $(SOURCES:.c=.i)
+ASMS = $(SOURCES:.c=.asm)
+DEPS = $(SOURCES:.c=.d)
 
-# -E and -M flags to generate the dependancies
-%.d: %.c
-	$(CC) -E -M $< $(CPPFLAGS) -o $@
+FILES = *.asm *.i *.o *.d
+	
+%.o : %.c
+	$(CC) $(INCLUDES) -c $< $(CFLAGS) -o $@
 
-# compile all and generate obhect files from source files (do not link)
-.PHONY: compile all 
+%.i : %.c
+	$(CC) $(INCLUDES) $(CPPFLAGS) $< $(CFLAGS) -o $@
+
+%.asm : %.c
+	$(CC) $(INCLUDES) -S $< $(CFLAGS) -o $@
+
+$(TARGET).asm : $(TARGET).out
+	$(OBJDUMP) -d $(TARGET).out >> $@
+
+%.d : %.c
+	$(CC) $(INCLUDES) -M $< $(CFLAGS) -o $@
+
+.PHONY: compile-all
 compile-all: $(OBJS)
+	$(CC) $(INCLUDES) $(OBJS) -c $(CFLAGS) -o $(TARGET).o
 
-#compile linking everything and create dependancies for the sources
-.PHONY: build 
-build: $(DEPS)
-build: $(TARGET).out
+.PHONY: build
+build: $(TARGET).out  $(TARGET).asm
 
-$(TARGET).out: $(OBJS)
-	$(CC) $(OBJS) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) -o $@
-	$(SIZE) $@
 
-#clean everything except for the source files
+$(TARGET).out: $(OBJS) $(DEPS) 
+	$(CC) $(CFLAGS) $(INCLUDES) $(LDFLAGS) -o $@ $(OBJS)
+	$(SIZE) -Atd $(TARGET).out
+	$(SIZE) $(TARGET).out
+
 .PHONY: clean
 clean:
-
-	rm -f $(OBJS) $(DEPS) $(ASMS) $(PREP) $(TARGET).out $(TARGET).map
+	rm -f $(TARGET).asm $(TARGET).out $().map $(DEPS) $(OBJS)
