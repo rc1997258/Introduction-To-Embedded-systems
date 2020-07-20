@@ -86,12 +86,12 @@
 
  unsigned char find_maximum(unsigned char array[], unsigned int length)
  {
- 	return array[length-1];
+ 	return array[0];
  }
 
  unsigned char find_minimum(unsigned char array[], unsigned int length)
  {
- 	return array[0];
+ 	return array[length-1];
  }
 
  void sort_array(unsigned char array[], unsigned int length)
