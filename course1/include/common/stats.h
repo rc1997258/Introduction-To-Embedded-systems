@@ -15,7 +15,6 @@
  * This file contains all the function declarations and descriptions of functions used in the project.
  * 
  * @author Rohan Chinni
- * @date 18th May 2020
  *
  */
 #ifndef __STATS_H__

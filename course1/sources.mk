@@ -8,27 +8,30 @@
 # misuse of this material. 
 #
 #*****************************************************************************
-# Add your Source files to this variable
-ifeq ($(PLATFORM),MSP432)
-	SOURCES =          main.c \
-			   memory.c \
-			   interrupts_msp432p401r_gcc.c \
-			   startup_msp432p401r_gcc.c \
-			   system_msp432p401r.c
-else
-	SOURCES = main.c \
-		  memory.c 
 
+#Conditional statement for SOURCES
+ 
+ifeq ($(PLATFORM),MSP432)
+	SOURCES =	\
+	./src/main.c \
+	./src/memory.c \
+	./src/stats.c \
+	./src/course1.c \
+	./src/data.c \
+	./src/interrupts_msp432p401r_gcc.c \
+	./src/startup_msp432p401r_gcc.c \
+	./src/system_msp432p401r.c
+else
+	SOURCES =	\
+	./src/main.c \
+	./src/memory.c \
+	./src/stats.c \
+	./src/data.c \
+	./src/course1.c 
 endif
 
-# Add your include paths to this variable
-# Add your include paths to this variable
-ifeq ($(PLATFORM),MSP432)
-	INCLUDES = 	   -I../include/CMSIS \
-			   -I../include/common \
-			   -I../include/msp432 \
-			   -I../ 
-else
-	INCLUDES =         -I../include/common	
-
-endif
+#Include paths
+INCLUDES =	\
+	-I./include/CMSIS \
+	-I./include/common \
+	-I./include/msp432
